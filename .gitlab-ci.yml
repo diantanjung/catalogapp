@@ -17,7 +17,8 @@ deploy-heroku:
   variables:
     HEROKU_API_KEY: $HEROKU_API_KEY
   script:
-    - apt install wget openjdk-8-jdk-headless -y
+    - apt-get update
+    - apt-get install wget openjdk-8-jdk-headless -y
     - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
     - heroku plugins:install heroku-cli-deploy
     - heroku deploy:jar target/*jar --app $HEROKU_APP_NAME
