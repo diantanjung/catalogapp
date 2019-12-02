@@ -21,4 +21,5 @@ deploy-heroku:
     - apt-get install wget -y
     - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
     - heroku plugins:install heroku-cli-deploy
+    - heroku buildpacks:set heroku/jvm
     - heroku deploy:jar target/*.jar --app $HEROKU_APP_NAME
