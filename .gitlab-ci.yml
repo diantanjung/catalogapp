@@ -13,12 +13,12 @@ build-package:
 
 deploy-heroku:
   stage: deploy
-  image: ubuntu:latest
+  image: openjdk-8-jdk
   variables:
     HEROKU_API_KEY: $HEROKU_API_KEY
   script:
     - apt-get update
-    - apt-get install openjdk-8-jdk-headless -y
-    - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+    - apt-get install wget -y
+    - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
     - heroku plugins:install heroku-cli-deploy
-    - heroku deploy:jar target/*jar --app $HEROKU_APP_NAME
+    - heroku deploy:jar target/*.jar --app $HEROKU_APP_NAME
