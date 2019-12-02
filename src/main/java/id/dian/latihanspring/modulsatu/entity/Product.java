@@ -20,7 +20,4 @@ public class Product {
 
     @NotNull @NotEmpty
     private String name;
-
-    public Product() {
-    }
 }
