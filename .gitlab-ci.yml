@@ -13,7 +13,7 @@ build-package:
 
 deploy-heroku:
   stage: deploy
-  image: openjdk-8-jdk
+  image: openjdk:8-jdk
   variables:
     HEROKU_API_KEY: $HEROKU_API_KEY
   script:
