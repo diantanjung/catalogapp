@@ -23,3 +23,16 @@ deploy-heroku:
     - heroku plugins:install heroku-cli-deploy
     - heroku buildpacks:clear --app $HEROKU_APP_NAME
     - heroku deploy:jar target/*.jar --app $HEROKU_APP_NAME
+
+deploy-vps:
+  stage: deploy
+  image: ubuntu:latest
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts'
+    - scp target/*.jar dian@$VPS_HOST:/var/lib/catalogapp/
+    - ssh dian@$VPS_HOST ln -s /var/lib/catalogapp/catalog-0.0.1-SNAPSHOT.jar /var/lib/catalogapp/catalogapp.jar
+    - ssh dian@$VPS_HOST service catalogapp restart

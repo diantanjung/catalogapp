@@ -4,7 +4,7 @@ After=syslog.target
 
 [Service]
 User=dian
-ExecStart=/var/lib/catalogapp/catalog.jar
+ExecStart=/var/lib/catalogapp/catalogapp.jar
 SuccessExitStatus=143
 
 [Install]
